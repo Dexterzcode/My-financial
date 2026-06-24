@@ -4,69 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>แอปบัญชีรายรับ-รายจ่ายรายเดือน</title>
-    <!-- นำเข้า Tailwind CSS -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%233f51b5'/><path d='M30 35h40v30H30z' fill='%23fff'/><path d='M65 45h10v10H65z' fill='%23ffca28'/><circle cx='70' cy='50' r='2' fill='%23000'/></svg>">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- นำเข้า Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="apple-touch-icon" href="https://img.icons8.com/fluent/180/000000/budget.png">
 </head>
 <body class="bg-gray-100 font-sans min-h-screen">
-
     <div class="max-w-md mx-auto bg-white min-h-screen shadow-lg flex flex-col">
-        <!-- Header -->
         <header class="bg-indigo-600 text-white text-center py-5 px-4 rounded-b-3xl shadow-md">
             <h1 class="text-2xl font-bold mb-1">บัญชีรายเดือน</h1>
             <p class="text-sm opacity-80">บันทึกรายวัน สรุปยอดรายเดือน</p>
         </header>
-
         <main class="flex-1 p-4 space-y-5">
-            <!-- ส่วนเลือกเดือน/ปี ที่ต้องการดูสรุป -->
             <div class="bg-white border border-gray-200 p-3 rounded-xl shadow-sm flex items-center justify-between">
                 <label for="month-filter" class="text-sm font-bold text-gray-600"><i class="fas fa-calendar-alt text-indigo-500 mr-1"></i> เลือกดูเดือน:</label>
                 <input type="month" id="month-filter" class="border border-gray-300 rounded-lg p-1 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-gray-50">
             </div>
-
-            <!-- ส่วนแสดงยอดเงินคงเหลือประจำเดือน -->
             <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl p-6 text-white shadow-md text-center">
                 <p class="text-sm uppercase tracking-wider opacity-80">ยอดเงินคงเหลือในเดือนนี้</p>
                 <h2 id="total-balance" class="text-4xl font-extrabold my-2">฿0.00</h2>
             </div>
-
-            <!-- การ์ดสรุป รายรับ / รายจ่าย ของเดือน -->
             <div class="grid grid-cols-2 gap-4">
                 <div class="bg-green-50 p-4 rounded-xl border border-green-200 flex items-center space-x-3">
-                    <div class="p-2.5 bg-green-500 rounded-full text-white text-sm">
-                        <i class="fas fa-arrow-down"></i>
-                    </div>
+                    <div class="p-2.5 bg-green-500 rounded-full text-white text-sm"><i class="fas fa-arrow-down"></i></div>
                     <div>
                         <p class="text-xs text-gray-500 font-medium">รายรับประจำเดือน</p>
                         <p id="total-income" class="text-md font-bold text-green-600">฿0.00</p>
                     </div>
                 </div>
                 <div class="bg-red-50 p-4 rounded-xl border border-red-200 flex items-center space-x-3">
-                    <div class="p-2.5 bg-red-500 rounded-full text-white text-sm">
-                        <i class="fas fa-arrow-up"></i>
-                    </div>
+                    <div class="p-2.5 bg-red-500 rounded-full text-white text-sm"><i class="fas fa-arrow-up"></i></div>
                     <div>
                         <p class="text-xs text-gray-500 font-medium">รายจ่ายประจำเดือน</p>
                         <p id="total-expense" class="text-md font-bold text-red-600">฿0.00</p>
                     </div>
                 </div>
             </div>
-
-            <!-- ฟอร์มกรอกข้อมูล บันทึกรายวัน -->
             <div class="bg-gray-50 p-4 rounded-2xl border border-gray-200">
                 <h3 class="text-sm font-bold text-gray-700 mb-3"><i class="fas fa-edit mr-1 text-indigo-500"></i> บันทึกรายการประจำวัน</h3>
                 <form id="transaction-form" class="space-y-3">
                     <div>
-                        <input type="text" id="text" placeholder="ชื่อรายการ (เช่น ค่าข้าว, เงินเดือน)" required
-                            class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
+                        <input type="text" id="text" placeholder="ชื่อรายการ (เช่น ค่าข้าว, เงินเดือน)" required class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
                     </div>
-                    
                     <div class="grid grid-cols-2 gap-2">
                         <div>
-                            <input type="number" id="amount" placeholder="จำนวนเงิน" required step="0.01"
-                                class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
+                            <input type="number" id="amount" placeholder="จำนวนเงิน" required step="0.01" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
                         </div>
                         <div>
                             <select id="type" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
@@ -75,35 +56,21 @@
                             </select>
                         </div>
                     </div>
-
                     <div class="flex items-center space-x-2">
                         <label for="date" class="text-xs text-gray-500 font-medium shrink-0">วันที่บันทึก:</label>
-                        <input type="date" id="date" required
-                            class="w-full px-3 py-1.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
+                        <input type="date" id="date" required class="w-full px-3 py-1.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
                     </div>
-
-                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 rounded-lg transition text-sm shadow">
-                        บันทึกรายการ
-                    </button>
+                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 rounded-lg transition text-sm shadow">บันทึกรายการ</button>
                 </form>
             </div>
-
-            <!-- ประวัติรายการประจำเดือน -->
             <div>
                 <h3 class="text-sm font-bold text-gray-700 mb-3"><i class="fas fa-history mr-1 text-gray-500"></i> รายการในเดือนนี้</h3>
-                <ul id="transaction-list" class="space-y-2 max-h-60 overflow-y-auto pr-1">
-                    <!-- รายการจะแสดงตามเดือนที่เลือกด้วย JavaScript -->
-                </ul>
+                <ul id="transaction-list" class="space-y-2 max-h-60 overflow-y-auto pr-1"></ul>
             </div>
         </main>
-
-        <!-- Footer -->
-        <footer class="text-center py-4 text-xs text-gray-400 border-t border-gray-100">
-            ระบบบันทึกรายรับ-รายจ่าย แยกรายเดือนคงเหลือในเครื่อง
-        </footer>
+        <footer class="text-center py-4 text-xs text-gray-400 border-t border-gray-100">ระบบบันทึกรายรับ-รายจ่าย แยกรายเดือนคงเหลือในเครื่อง</footer>
     </div>
 
-    <!-- ส่วนของ JavaScript จัดการระบบเดือนและคํานวณ -->
     <script>
         const balance = document.getElementById('total-balance');
         const money_plus = document.getElementById('total-income');
@@ -116,121 +83,21 @@
         const dateInput = document.getElementById('date');
         const monthFilter = document.getElementById('month-filter');
 
-        // ตั้งค่าวันที่ปัจจุบันให้เป็น Default ในฟอร์มและตัวกรอง
         const today = new Date();
-        const currentYearMonth = today.toISOString().substring(0, 7); // จะได้รูปแบบ "YYYY-MM"
+        const currentYearMonth = today.toISOString().substring(0, 7);
         monthFilter.value = currentYearMonth;
-        dateInput.value = today.toISOString().substring(0, 10); // จะได้รูปแบบ "YYYY-MM-DD"
+        dateInput.value = today.toISOString().substring(0, 10);
 
-        // ดึงข้อมูลจากคลังข้อมูลในเครื่องมือถือ/คอม
         let transactions = localStorage.getItem('monthly_transactions') !== null ? JSON.parse(localStorage.getItem('monthly_transactions')) : [];
 
-        // ฟังก์ชันเพิ่มรายการ
         function addTransaction(e) {
             e.preventDefault();
-
             if (text.value.trim() === '' || amount.value.trim() === '' || dateInput.value === '') {
                 alert('กรุณากรอกข้อมูลและใส่วันที่ให้ครบถ้วนครับ');
                 return;
             }
-
             const transactionAmount = type.value === 'expense' ? -Math.abs(Number(amount.value)) : Math.abs(Number(amount.value));
-
             const transaction = {
                 id: Math.floor(Math.random() * 100000000),
                 text: text.value,
                 amount: transactionAmount,
-                date: dateInput.value // บันทึกวันที่ด้วย (เช่น "2026-06-24")
-            };
-
-            transactions.push(transaction);
-            
-            // อัปเดต LocalStorage และแสดงผลใหม่
-            updateLocalStorage();
-            
-            // ปรับตัวกรองเดือนให้ไปอยู่ที่เดือนของรายการที่เราเพิ่งกดบันทึก เพื่อให้เห็นรายการทันที
-            monthFilter.value = transaction.date.substring(0, 7);
-            
-            renderApp();
-
-            // ล้างข้อมูลชื่อและจำนวนเงิน (แต่วันที่คงไว้เผื่อคีย์รายการวันเดิมต่อ)
-            text.value = '';
-            amount.value = '';
-        }
-
-        // ฟังก์ชันจัดกลุ่ม แสดงผล และคำนวณเงินเฉพาะเดือนที่เลือก
-        function renderApp() {
-            list.innerHTML = '';
-            const selectedMonth = monthFilter.value; // เช่น "2026-06"
-
-            // กรองเอาเฉพาะรายการที่ตรงกับเดือนที่เลือก
-            const filteredTransactions = transactions.filter(t => t.date.substring(0, 7) === selectedMonth);
-
-            // เรียงลำดับตามวันที่บันทึก (ใหม่ไปเก่า หรือวันที่น้อยไปมาก ตามสะดวก ในที่นี้เรียงตามวัน)
-            filteredTransactions.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-            // แสดงผลรายการที่กรองแล้วลงหน้าจอ
-            filteredTransactions.forEach(transaction => {
-                const sign = transaction.amount < 0 ? '-' : '+';
-                const item = document.createElement('li');
-
-                // ฟอร์แมตวันที่แบบไทยๆ ให้ดูง่ายขึ้น (เช่น 24 มิ.ย.)
-                const dateObj = new Date(transaction.date);
-                const thaiDate = dateObj.toLocaleDateString('th-TH', { day: 'numeric', month: 'short' });
-
-                if(transaction.amount < 0) {
-                    item.className = 'flex justify-between items-center bg-red-50 border-r-4 border-red-500 p-3 rounded-lg text-sm shadow-sm';
-                } else {
-                    item.className = 'flex justify-between items-center bg-green-50 border-r-4 border-green-500 p-3 rounded-lg text-sm shadow-sm';
-                }
-
-                item.innerHTML = `
-                    <div class="flex flex-col">
-                        <span class="font-bold text-gray-700">${transaction.text}</span>
-                        <span class="text-xxs text-gray-400"><i class="far fa-clock mr-1"></i>${thaiDate}</span>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <span class="${transaction.amount < 0 ? 'text-red-600' : 'text-green-600'} font-bold">
-                            ${sign}฿${Math.abs(transaction.amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
-                        </span>
-                        <button class="text-gray-400 hover:text-red-500 transition cursor-pointer" onclick="removeTransaction(${transaction.id})">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                    </div>
-                `;
-                list.appendChild(item);
-            });
-
-            // คำนวณยอดเงินของเดือนนี้
-            const amounts = filteredTransactions.map(t => t.amount);
-            const total = amounts.reduce((acc, item) => (acc += item), 0).toFixed(2);
-            const income = amounts.filter(item => item > 0).reduce((acc, item) => (acc += item), 0).toFixed(2);
-            const expense = (amounts.filter(item => item < 0).reduce((acc, item) => (acc += item), 0) * -1).toFixed(2);
-
-            // ใส่ตัวเลขสรุปลงหน้าเว็บ
-            balance.innerText = `฿${Number(total).toLocaleString('th-TH', {minimumFractionDigits: 2})}`;
-            money_plus.innerText = `฿${Number(income).toLocaleString('th-TH', {minimumFractionDigits: 2})}`;
-            money_minus.innerText = `฿${Number(expense).toLocaleString('th-TH', {minimumFractionDigits: 2})}`;
-        }
-
-        // ลบรายการ
-        function removeTransaction(id) {
-            transactions = transactions.filter(transaction => transaction.id !== id);
-            updateLocalStorage();
-            renderApp();
-        }
-
-        // เซฟข้อมูลลงเครื่อง
-        function updateLocalStorage() {
-            localStorage.setItem('monthly_transactions', JSON.stringify(transactions));
-        }
-
-        // Event Listeners
-        form.addEventListener('submit', addTransaction);
-        monthFilter.addEventListener('change', renderApp); // เมื่อเปลี่ยนเดือนในดร็อปดาวน์ ให้เปลี่ยนข้อมูลทันที
-
-            // รันแอปครั้งแรก
-            renderApp();
-        </script>
-    </body>
-    </html>
